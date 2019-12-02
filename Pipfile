@@ -8,10 +8,11 @@ shapely = "*"
 rope = "*"
 
 [packages]
-torch = "*"
+torch = "==1.*"
 torchvision = "*"
 jupyter = "*"
 matplotlib = "*"
+tensorboard = "*"
 
 [requires]
 python_version = "3.7"

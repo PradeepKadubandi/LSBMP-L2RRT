@@ -1,10 +1,11 @@
 from shapely.geometry import box
 from shapely.geometry import Point
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 
 class VisualEnvironment:
-    def __init__(self, size=32, includeRobot=True, shouldInit=True):
+    def __init__(self, size=32.0, includeRobot=True, shouldInit=True):
         self.size = size
         self.includeRobot = includeRobot
         self.robot_hl = 0.5
@@ -85,6 +86,7 @@ class VisualEnvironment:
     
     def generate_trajectory(self, length):
         envs = []
+        controls = []
         stepsize = 3
         delta_t = 1
         direction = np.random.choice([-1, +1], size=(2))
@@ -94,7 +96,8 @@ class VisualEnvironment:
             new_robot_pos = current_env.robot_center + delta_t * control
             current_env = current_env.with_new_robot_position(new_robot_pos)
             envs.append(current_env)
-        return envs
+            controls.append(control)
+        return envs, controls
 
     def value_for_position(self, pos):
         world_center = np.array([self.size/2, self.size/2])
@@ -127,7 +130,7 @@ class VisualEnvironment:
             if dist <= self.robot_hl:
                 value_from_robot = robot_center_value - robot_gradient * dist
 
-        return int(value_from_world + value_from_obstacle + value_from_robot)
+        return math.floor(value_from_world + value_from_obstacle + value_from_robot)
         
     def circular_obs_distance(self, center, point):
         return np.linalg.norm(center-point)
