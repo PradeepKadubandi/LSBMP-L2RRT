@@ -8,7 +8,7 @@ class VisualEnvironment:
     def __init__(self, size=32.0, includeRobot=True, shouldInit=True):
         self.size = size
         self.includeRobot = includeRobot
-        self.robot_hl = 0.5
+        self.robot_hl = 2.0
         self.world = None
         self.data = None
         if shouldInit:
@@ -63,7 +63,7 @@ class VisualEnvironment:
         '''
         Builds a numpy array with different integer range values for empty space, obstacles, robot
         '''
-        self.data = np.array([[self.value_for_position([x, y]) for y in range(self.size)] for x in range(self.size)])
+        self.data = np.array([[self.value_for_position([x, y]) for y in range(int(self.size))] for x in range(int(self.size))])
         # if self.world is None:
         #     self.build_geometry()
         # self.build_empty()
@@ -130,7 +130,7 @@ class VisualEnvironment:
             if dist <= self.robot_hl:
                 value_from_robot = robot_center_value - robot_gradient * dist
 
-        return math.floor(value_from_world + value_from_obstacle + value_from_robot)
+        return value_from_world + value_from_obstacle + value_from_robot
         
     def circular_obs_distance(self, center, point):
         return np.linalg.norm(center-point)
