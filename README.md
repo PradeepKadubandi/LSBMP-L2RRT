@@ -9,5 +9,6 @@ Reproducing the paper 'Robot Motion Planning In Learned Latest Spaces'
     - The latent dimension turns out to be of a very low magnitude (of the order 10^-5) whereas theirs is in between 0 and 1. This is also the reason for almost negligible L2 loss and Grammian loss after training a few epochs.
   - <s>Check their reconstruction quality</s>
     - Thier reconstruction is relatively better looking than ours. Also their MSE on a test sample is below 25 whereas the best we got so far is above 150.
-  - Run my network with their sample data.
+  - <s>Run my network with their sample data.</s>
+    - This has same behavior as running with my generated data, I ran for 200 epochs, and the latent dimension is of very low magnitude, there's a high test MSE and reconstruction error. This probably means that quality of the data set is not the main source of problem (which was my concern till now).
   - Cross check the spatial arg max implementations on both sides.
